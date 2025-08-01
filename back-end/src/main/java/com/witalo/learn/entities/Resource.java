@@ -3,11 +3,17 @@ package com.witalo.learn.entities;
 import com.witalo.learn.entities.enums.ResourceType;
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_resource")
-public class Resource {
+public class Resource implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +27,9 @@ public class Resource {
     @ManyToOne
     @JoinColumn(name = "offer_id")
     private Offer offer;
+
+    @OneToMany(mappedBy = "resource")
+    private List<Section> sections = new ArrayList<>();
 
     public Resource(Long id, String title, String description, Integer position, String imgUri, ResourceType type, String externalLink, Offer offer) {
         this.id = id;
