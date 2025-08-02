@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity
@@ -17,7 +18,7 @@ public class Section implements Serializable {
     private Long id;
     private String title;
     private String description;
-    private Integer positon;
+    private Integer position;
     private String imgUri;
 
     @ManyToOne
@@ -27,4 +28,85 @@ public class Section implements Serializable {
     @ManyToOne
     @JoinColumn(name = "prerequisite_id")
     private Section prerequisite;
+
+    public Section() {
+    }
+
+    public Section(Long id, String title, String description, Integer positon, String imgUri, Resource resource, Section prerequisite) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.position = positon;
+        this.imgUri = imgUri;
+        this.resource = resource;
+        this.prerequisite = prerequisite;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public String getImgUri() {
+        return imgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        this.imgUri = imgUri;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public Section getPrerequisite() {
+        return prerequisite;
+    }
+
+    public void setPrerequisite(Section prerequisite) {
+        this.prerequisite = prerequisite;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return Objects.equals(getId(), section.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
 }
