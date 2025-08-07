@@ -8,7 +8,7 @@ import java.io.Serial;
 import java.time.Instant;
 
 @Entity
-@Table(name = "task_id")
+@Table(name = "tb_task")
 public class Task extends Lesson {
     @Serial
     private static final long serialVersionUID = 1L;

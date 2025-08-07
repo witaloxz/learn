@@ -1,15 +1,13 @@
 package com.witalo.learn.entities;
 
 import com.witalo.learn.entities.pk.EnrollmentPK;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_enrollment")
@@ -21,12 +19,15 @@ public class Enrollment implements Serializable {
     private EnrollmentPK id = new EnrollmentPK();
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant enrolMoment;
+    private Instant enrollMoment;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant refundMoment;
     private Boolean available;
     private Boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+    private Set<Lesson> lessonsDone = new HashSet<>();
 
     public Enrollment() {
     }
@@ -37,7 +38,7 @@ public class Enrollment implements Serializable {
         this.onlyUpdate = onlyUpdate;
         this.available = available;
         this.refundMoment = refundMoment;
-        this.enrolMoment = enrolMoment;
+        this.enrollMoment = enrolMoment;
     }
 
    public User getStudent() {
@@ -56,12 +57,12 @@ public class Enrollment implements Serializable {
         id.setOffer(offer);
    }
 
-    public Instant getEnrolMoment() {
-        return enrolMoment;
+    public Instant getEnrollMoment() {
+        return enrollMoment;
     }
 
-    public void setEnrolMoment(Instant enrolMoment) {
-        this.enrolMoment = enrolMoment;
+    public void setEnrollMoment(Instant enrollMoment) {
+        this.enrollMoment = enrollMoment;
     }
 
     public Instant getRefundMoment() {
